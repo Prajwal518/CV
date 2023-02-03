@@ -8,13 +8,14 @@ Dim tf_Lmn As String
 Dim tf_sta As String
 Dim dt As Date
 
-'UserForm2.Show DoEvents
+UserForm2.Show DoEvents
 
-''Sheets("LeaveAddition").Range("E6").ClearContents
+Sheets("Leave_Addition").Range("E6").ClearContents
 
-''Sheets("TableFormat").Visible = xlSheetVisible
+Sheets("Tables_Format").Visible = xlSheetVisible
 
 'Application.Calculation = xlManual
+
 
 
 ''Call table_create
@@ -25,42 +26,41 @@ Dim dt As Date
 'Application.DisplayAlerts = False
 
 
-Sheets("TableFormat").Select
+Sheets("Tables_Format").Select
 
-tf_frow = Sheets("TableFormat").Range("M" & Rows.Count).End(xlUp).Row + 1
-tf_lrow = Sheets("TableFormat").Range("A" & Rows.Count).End(xlUp).Row
+tf_frow = Sheets("Tables_Format").Range("M" & Rows.Count).End(xlUp).Row + 1
+tf_lrow = Sheets("Tables_Format").Range("A" & Rows.Count).End(xlUp).Row
 
-emp_no = Sheets("TableFormat").Range("A" & tf_frow)
-tf_Cmn = Sheets("TableFormat").Range("I" & tf_frow)
-tf_Lmn = Sheets("TableFormat").Range("H" & tf_frow - 1)
+emp_no = Sheets("Tables_Format").Range("A" & tf_frow)
+tf_Cmn = Sheets("Tables_Format").Range("I" & tf_frow)
+tf_Lmn = Sheets("Tables_Format").Range("H" & tf_frow - 1)
 
 
-tf_sta = Sheets("TableFormat").Range("N" & tf_frow)
+tf_sta = Sheets("Tables_Format").Range("N" & tf_frow)
 
 l = 1
 
 For i = tf_frow To tf_lrow
 
-emp_no1 = Sheets("TableFormat").Range("A" & i)
+emp_no1 = Sheets("Tables_Format").Range("A" & i)
 
 If l = 1 Or emp_no1 = emp_no2 Then
 
 emp_no2 = emp_no1
 
-tf_frow = Sheets("TableFormat").Range("M" & Rows.Count).End(xlUp).Row + 1
+tf_frow = Sheets("Tables_Format").Range("M" & Rows.Count).End(xlUp).Row + 1
 
-tf_Cmn = Sheets("TableFormat").Range("I" & tf_frow)
+tf_Cmn = Sheets("Tables_Format").Range("I" & tf_frow)
     
-tf_Lmn = Sheets("TableFormat").Range("H" & tf_frow - 1)
-''tf_Lmn = Sheets("TableFormat").Range("H" & tf_frow)
+tf_Lmn = Sheets("Tables_Format").Range("H" & tf_frow - 1)
 
 l = l + 1
 
-wk_end = Sheets("TableFormat").Range("H" & i)
+wk_end = Sheets("Tables_Format").Range("H" & i)
 
 End If
 
-Set emp_row = Sheets("TableFormat").Range("A7:A" & tf_frow - 1).Find(What:=emp_no1, LookIn:=xlFormulas, _
+Set emp_row = Sheets("Tables_Format").Range("A7:A" & tf_frow - 1).Find(What:=emp_no1, LookIn:=xlFormulas, _
         LookAt:=xlWhole, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
         MatchCase:=False, SearchFormat:=False)
 
@@ -70,43 +70,42 @@ Set emp_row = Sheets("TableFormat").Range("A7:A" & tf_frow - 1).Find(What:=emp_n
         If emp_row Is Nothing Then
     
     
-    
-                        cl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("G2:G100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                        sl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("H2:H100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                        fsl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("I2:I100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                        el_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("J2:J100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
+                        cl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("G2:G100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                        sl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("H2:H100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                        fsl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("I2:I100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                        el_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("J2:J100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
                         
                         
-                        cl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Casual Leave") / 8
-                        sl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Sick Leave") / 8
-                        fsl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Frozen Sick Leave") / 8
-                        el_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Earned Leave") / 8
-                        ul_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Unpaid Leave") / 8
-                        ml_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Maternity Leave") / 8
+                        cl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Casual Leave") / 8
+                        sl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Sick Leave") / 8
+                        fsl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Frozen Sick Leave") / 8
+                        el_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Earned Leave") / 8
+                        ul_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Unpaid Leave") / 8
+                        ml_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Maternity Leave") / 8
                         
                         
-                        Sheets("TableFormat").Range("J" & i) = (cl_a - cl_d)
-                        Sheets("TableFormat").Range("K" & i) = (sl_a - sl_d)
-                        Sheets("TableFormat").Range("L" & i) = (fsl_a - fsl_d)
-                        Sheets("TableFormat").Range("M" & i) = (el_a - el_d)
+                        Sheets("Tables_Format").Range("J" & i) = (cl_a - cl_d)
+                        Sheets("Tables_Format").Range("K" & i) = (sl_a - sl_d)
+                        Sheets("Tables_Format").Range("L" & i) = (fsl_a - fsl_d)
+                        Sheets("Tables_Format").Range("M" & i) = (el_a - el_d)
 
                         
                         
-'                        If Sheets("TableFormat").Range("J" & i) < 0 Then
-'                            Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("J" & i)
-'                            Sheets("TableFormat").Range("J" & i) = 0
+'                        If Sheets("Tables_Format").Range("J" & i) < 0 Then
+'                            Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("J" & i)
+'                            Sheets("Tables_Format").Range("J" & i) = 0
 '                        End If
 '
 '
-'                        If Sheets("TableFormat").Range("K" & i) < 0 Then
-'                            Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("K" & i)
-'                            Sheets("TableFormat").Range("K" & i) = 0
+'                        If Sheets("Tables_Format").Range("K" & i) < 0 Then
+'                            Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("K" & i)
+'                            Sheets("Tables_Format").Range("K" & i) = 0
 '                        End If
 '
 '
-'                        If Sheets("TableFormat").Range("L" & i) < 0 Then
-'                            Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("L" & i)
-'                            Sheets("TableFormat").Range("L" & i) = 0
+'                        If Sheets("Tables_Format").Range("L" & i) < 0 Then
+'                            Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("L" & i)
+'                            Sheets("Tables_Format").Range("L" & i) = 0
 '                        End If
 
                         
@@ -127,53 +126,53 @@ Set emp_row = Sheets("TableFormat").Range("A7:A" & tf_frow - 1).Find(What:=emp_n
                     End If
         
         
-        If Sheets("TableFormat").Range("A" & j) = emp_no1 And Sheets("TableFormat").Range("H" & j) = tf_Lmn Then
+        If Sheets("Tables_Format").Range("A" & j) = emp_no1 And Sheets("Tables_Format").Range("H" & j) = tf_Lmn Then
             
-            cl = Sheets("TableFormat").Range("J" & j)
-            sl = Sheets("TableFormat").Range("K" & j)
-            fsl = Sheets("TableFormat").Range("L" & j)
-            el = Sheets("TableFormat").Range("M" & j)
+            cl = Sheets("Tables_Format").Range("J" & j)
+            sl = Sheets("Tables_Format").Range("K" & j)
+            fsl = Sheets("Tables_Format").Range("L" & j)
+            el = Sheets("Tables_Format").Range("M" & j)
             
-                If Sheets("TableFormat").Range("N" & i) = "Update" Then
+                If Sheets("Tables_Format").Range("N" & i) = "Update" Then
                 
-                    cl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("G2:G100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                    sl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("H2:H100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                    fsl_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("I2:I100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
-                    el_a = Application.WorksheetFunction.SumIfs(Sheets("LeaveAddition").Range("J2:J100000"), Sheets("LeaveAddition").Range("C2:C100000"), emp_no1, Sheets("LeaveAddition").Range("B2:B100000"), tf_Cmn)
+                    cl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("G2:G100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                    sl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("H2:H100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                    fsl_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("I2:I100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
+                    el_a = Application.WorksheetFunction.SumIfs(Sheets("Leave_Addition").Range("J2:J100000"), Sheets("Leave_Addition").Range("C2:C100000"), emp_no1, Sheets("Leave_Addition").Range("B2:B100000"), tf_Cmn)
 
                 
                 End If
             
-            cl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Casual Leave") / 8
-            sl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Sick Leave") / 8
-            fsl_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Frozen Sick Leave") / 8
-            el_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Earned Leave") / 8
-            ul_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Unpaid Leave") / 8
-            ml_d = Application.WorksheetFunction.SumIfs(Sheets("LeaveData").Range("D2:D100000"), Sheets("LeaveData").Range("A2:A100000"), wk_end, Sheets("LeaveData").Range("E2:E100000"), emp_no1, Sheets("LeaveData").Range("C2:C100000"), "Maternity Leave") / 8
+            cl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Casual Leave") / 8
+            sl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Sick Leave") / 8
+            fsl_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Frozen Sick Leave") / 8
+            el_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Earned Leave") / 8
+            ul_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Unpaid Leave") / 8
+            ml_d = Application.WorksheetFunction.SumIfs(Sheets("Leaves Taken").Range("D2:D100000"), Sheets("Leaves Taken").Range("A2:A100000"), wk_end, Sheets("Leaves Taken").Range("E2:E100000"), emp_no1, Sheets("Leaves Taken").Range("C2:C100000"), "Maternity Leave") / 8
 
             
-            Sheets("TableFormat").Range("J" & i) = ((cl + cl_a) - cl_d)
-            Sheets("TableFormat").Range("K" & i) = ((sl + sl_a) - sl_d)
-            Sheets("TableFormat").Range("L" & i) = ((fsl + fsl_a) - fsl_d)
-            Sheets("TableFormat").Range("M" & i) = ((el + el_a) - el_d)
+            Sheets("Tables_Format").Range("J" & i) = ((cl + cl_a) - cl_d)
+            Sheets("Tables_Format").Range("K" & i) = ((sl + sl_a) - sl_d)
+            Sheets("Tables_Format").Range("L" & i) = ((fsl + fsl_a) - fsl_d)
+            Sheets("Tables_Format").Range("M" & i) = ((el + el_a) - el_d)
 
             
             
-'            If Sheets("TableFormat").Range("J" & i) < 0 Then
-'                Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("J" & i)
-'                Sheets("TableFormat").Range("J" & i) = 0
+'            If Sheets("Tables_Format").Range("J" & i) < 0 Then
+'                Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("J" & i)
+'                Sheets("Tables_Format").Range("J" & i) = 0
 '            End If
 '
 '
-'            If Sheets("TableFormat").Range("K" & i) < 0 Then
-'                Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("K" & i)
-'                Sheets("TableFormat").Range("K" & i) = 0
+'            If Sheets("Tables_Format").Range("K" & i) < 0 Then
+'                Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("K" & i)
+'                Sheets("Tables_Format").Range("K" & i) = 0
 '            End If
 '
 '
-'            If Sheets("TableFormat").Range("L" & i) < 0 Then
-'                Sheets("TableFormat").Range("M" & i) = Sheets("TableFormat").Range("M" & i) + Sheets("TableFormat").Range("L" & i)
-'                Sheets("TableFormat").Range("L" & i) = 0
+'            If Sheets("Tables_Format").Range("L" & i) < 0 Then
+'                Sheets("Tables_Format").Range("M" & i) = Sheets("Tables_Format").Range("M" & i) + Sheets("Tables_Format").Range("L" & i)
+'                Sheets("Tables_Format").Range("L" & i) = 0
 '            End If
                 
             
@@ -195,21 +194,21 @@ Set emp_row = Sheets("TableFormat").Range("A7:A" & tf_frow - 1).Find(What:=emp_n
             ml_d = 0
             
             
-            If Sheets("TableFormat").Range("J" & i) > 12 Then
+            If Sheets("Tables_Format").Range("J" & i) > 12 Then
             
-            Sheets("TableFormat").Range("J" & i) = 12
-            
-            End If
-            
-            If Sheets("TableFormat").Range("K" & i) > 12 Then
-            
-            Sheets("TableFormat").Range("K" & i) = 12
+            Sheets("Tables_Format").Range("J" & i) = 12
             
             End If
             
-            If Sheets("TableFormat").Range("M" & i) > 45 Then
+            If Sheets("Tables_Format").Range("K" & i) > 12 Then
             
-            Sheets("TableFormat").Range("M" & i) = 45
+            Sheets("Tables_Format").Range("K" & i) = 12
+            
+            End If
+            
+            If Sheets("Tables_Format").Range("M" & i) > 45 Then
+            
+            Sheets("Tables_Format").Range("M" & i) = 45
             
             End If
             
@@ -226,23 +225,23 @@ Next i
 'Application.Calculation = xlAutomatic
 
 
-''Call Pivot_LU
-''Call Pivot_LB
+Call Pivot_LU
+Call Pivot_LB
 
-''UserForm2.Hide
+UserForm2.Hide
 
-''Application.ScreenUpdating = True
-''Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
 
-Sheets("LeaveAddition").Select
-''Sheets("TableFormat").Visible = xlSheetVeryHidden
-Sheets("LeaveAddition").Range("G3").Select
-
-
-dt = Application.WorksheetFunction.Large(Sheets("LeaveData").Range("A1:A100000"), 1)
+Sheets("Leave_Addition").Select
+Sheets("Tables_Format").Visible = xlSheetVeryHidden
+Sheets("Leave_Addition").Range("G3").Select
 
 
-Sheets("LeaveAddition").Range("E6") = "TimeCard Data Available till : " & Format(dt, "DD MMM YYYY")
+dt = Application.WorksheetFunction.Large(Sheets("Leaves Taken").Range("A1:A100000"), 1)
+
+
+Sheets("Leave_Addition").Range("E6") = "TimeCard Data Available till : " & Format(dt, "DD MMM YYYY")
 
 MsgBox ("Leaves Updated")
 
